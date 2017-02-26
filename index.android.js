@@ -6,48 +6,59 @@
 
 import React, { Component } from 'react';
 import {
-  AppRegistry,
-  StyleSheet,
-  Text,
-  View
+    AppRegistry,
+    StyleSheet,
+    Text,
+    View
 } from 'react-native';
 
 export default class roomMateMatch extends Component {
-  render() {
-    return (
-      <View style={styles.container}>
-        <Text style={styles.welcome}>
-          Welcome to React Native!
-        </Text>
-        <Text style={styles.instructions}>
-          To get started, edit index.android.js
-        </Text>
-        <Text style={styles.instructions}>
-          Double tap R on your keyboard to reload,{'\n'}
-          Shake or press menu button for dev menu
-        </Text>
-      </View>
-    );
-  }
+    render() {
+        return (
+            <View style={styles.container}>
+                <View style = {styles.wrapper}>
+                    <Text style={styles.welcome}>
+                        Roommate Match
+                    </Text>
+                    <Text style={styles.subtitle}>
+                        Find your match
+                    </Text>
+                </View>
+
+                <View>
+                    <Text style = {styles.bottomPart}> powered by react native</Text>
+                </View>
+
+            </View>
+        );
+    }
 }
 
 const styles = StyleSheet.create({
-  container: {
+    container: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#F5FCFF',
-  },
-  welcome: {
-    fontSize: 20,
+    backgroundColor: '#79daf2',
+    },
+
+    subtitle: {
+    fontSize: 14,
     textAlign: 'center',
-    margin: 10,
-  },
-  instructions: {
-    textAlign: 'center',
-    color: '#333333',
-    marginBottom: 5,
-  },
+    },
+    
+    welcome: {
+      fontSize: 32,
+      textAlign: 'center',
+      margin: 10,
+      paddingTop: 20,
+    },
+    
+    wrapper: {
+        flex: 1,
+    },
+
+    bottomPart: {
+        textAlign: 'center',
+    }
 });
 
 AppRegistry.registerComponent('roomMateMatch', () => roomMateMatch);
