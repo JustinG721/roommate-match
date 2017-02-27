@@ -23,7 +23,9 @@ export default class Splash extends Component {
                 </View>
 
                 <View>
-                    <Text style = {styles.bottomPart}> powered by react native</Text>
+                    <Text style = {styles.bottomPart}> 
+                        powered by react native
+                    </Text>
                 </View>
 
             </View>
