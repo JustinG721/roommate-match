@@ -13,7 +13,7 @@ export default class Splash extends Component {
                 <View style = {styles.wrapper}>
 
                     <Text style={styles.title}>
-                        Roommate Match
+                         Roomies
                     </Text>
 
                     <Text style={styles.subtitle}>

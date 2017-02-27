@@ -7,16 +7,17 @@ export default class LoginForm extends Component {
             <View style = {styles.container}>
                 <TextInput 
                 style = {styles.input}
+                underlineColorAndroid = {'transparent'}
                 />
-                <Text>
-                    enter your username
+                <Text style = {styles.inputPrompt}> 
+                    Enter your username
                 </Text>
-                
+
                 <TextInput
                 style = {styles.input} 
                 />
-                <Text>
-                    enter your password
+                <Text style = {styles.inputPrompt}>
+                    Enter your password
                 </Text>
             </View>
 
@@ -26,13 +27,20 @@ export default class LoginForm extends Component {
 
 const styles = StyleSheet.create ({
     container: {
-        padding: 20,
+        paddingTop: 20,
         alignItems: 'center',
+        justifyContent: 'center',
     },
 
-    input : {
+    input: {
         height: 40,
         width: 200,
-        paddingBottom: 20,
+        backgroundColor: '#007e9e',
+        opacity: 0.9,
+        textAlign: 'center',
+    },
+
+    inputPrompt: {
+        paddingBottom: 30,
     },
 });

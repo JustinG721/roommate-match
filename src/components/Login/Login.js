@@ -14,14 +14,21 @@ export default class LoginScreen extends Component {
                 </Text>
                 </View>
 
-                <View>
+                <View style = {styles.inputContainer}>
                     <LoginForm />
                 </View>
 
-                <View>
-                    <Text style = {styles.signup}>
-                        not a member? Tap here to sign up!
-                    </Text>
+                <View style = {styles.signInOrUp}>
+                    <View style = {styles.signUpBox}>
+                        <Text style = {styles.signIn}>
+                            SIGN UP
+                        </Text>
+                    </View>
+                    <View style = {styles.signInBox}>
+                        <Text style = {styles.signUp}>
+                            SIGN IN
+                        </Text>
+                    </View>    
                 </View>
             </View>
 
@@ -39,7 +46,7 @@ const styles = StyleSheet.create({
     logoContainer: {
         alignItems:'center', 
         justifyContent: 'center',
-        flexGrow: 1,       
+        flexGrow: 1,   
     },
 
     logoPic: {
@@ -54,15 +61,33 @@ const styles = StyleSheet.create({
         color: 'white',
     },
 
-    inputform: {
-        paddingBottom: 20,
-        backgroundColor: 'white',
+    inputContainer: {
+        paddingBottom: 50,
+        justifyContent: 'center',
     },
 
-    signup: {
-        paddingBottom: 20,
-        color: 'white',
-        textAlign: 'center',
+    signInOrUp: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'center',
+        paddingBottom: 8,
+    },
+
+    signUpBox: {
+        paddingRight: 100,
+        borderColor: 'black',
+    },
+
+    signUp: {
+        fontSize: 20,
+    },
+
+    signInBox: {
+        paddingLeft: 100,
+    },
+
+    signIn: {
+        fontSize: 20,
     },
 });
 
