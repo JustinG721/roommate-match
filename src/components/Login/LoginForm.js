@@ -2,12 +2,15 @@ import React, {Component} from 'react';
 import {StyleSheet, View, Text, Button, TextInput} from 'react-native';
 
 export default class LoginForm extends Component {
+
+
     render() {
         return (
             <View style = {styles.container}>
                 <TextInput 
                 style = {styles.input}
                 underlineColorAndroid = {'transparent'}
+                onChangeText = { (text) => this.setState({username: text})}
                 />
                 <Text style = {styles.inputPrompt}> 
                     Enter your username
@@ -15,6 +18,8 @@ export default class LoginForm extends Component {
 
                 <TextInput
                 style = {styles.input} 
+                underlineColorAndroid = {'transparent'}
+                onChangeText = { (text) => this.setState({password: text})}
                 />
                 <Text style = {styles.inputPrompt}>
                     Enter your password

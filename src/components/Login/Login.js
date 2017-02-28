@@ -1,8 +1,59 @@
 import React, {Component} from 'react';
-import {StyleSheet, View, Text, Button, TextInput, Image} from 'react-native';
-import LoginForm from './LoginForm.js'
+import {StyleSheet, View, Text, Button, 
+        TextInput, Image, TouchableHighlight} from 'react-native';
+import LoginForm from './LoginForm.js';
+import Success from './Success.js';
 
-export default class LoginScreen extends Component {
+
+export default class Login extends Component {
+
+    constructor () {
+        super ()
+
+        this.state = {
+            username: '',
+            password: '',
+            error: '',
+            showProgress: false,
+        }
+    }
+
+async onLoginPressed() {
+    this.setState({showProgress: true})
+    try {
+      let response = await fetch('https://djangorest-prithajnath.c9users.io/get_auth_token/', {
+                              method: 'POST',
+                              headers: {
+                                'Accept': 'application/json',
+                                'Content-Type': 'application/json',
+                              },
+                              body: JSON.stringify({
+                                session:{
+                                  email: this.state.email,
+                                  password: this.state.password,
+                                }
+                              })
+                            });
+      let res = await response.text();
+      if (response.status >= 200 && response.status < 300) {
+          //Handle success
+          let accessToken = res;
+          console.log(accessToken);
+          //On success we will store the access_token in the AsyncStorage
+          this.storeToken(accessToken);
+          this.redirect('Success');
+      } else {
+          //Handle error
+          let error = res;
+          throw error;
+      }
+    } catch(error) {
+        this.setState({error: error});
+        console.log("error " + error);
+        this.setState({showProgress: false});
+    }
+
+    } 
     render() {
         return (
             <View style = {styles.container}>
@@ -20,14 +71,17 @@ export default class LoginScreen extends Component {
 
                 <View style = {styles.signInOrUp}>
                     <View style = {styles.signUpBox}>
-                        <Text style = {styles.signIn}>
+                        <Text style = {styles.button}>
                             SIGN UP
                         </Text>
                     </View>
                     <View style = {styles.signInBox}>
-                        <Text style = {styles.signUp}>
-                            SIGN IN
-                        </Text>
+                        <TouchableHighlight 
+                        onPress={this.onLoginPressed.bind(this)}>
+                            <Text style = {styles.button}>
+                                SIGN IN
+                            </Text>
+                        </TouchableHighlight>
                     </View>    
                 </View>
             </View>
@@ -70,24 +124,23 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'center',
-        paddingBottom: 8,
+        paddingBottom: 10,
+        backgroundColor: '#004b5e',
+        paddingTop: 10,
     },
 
     signUpBox: {
         paddingRight: 100,
-        borderColor: 'black',
     },
 
-    signUp: {
+    button: {
         fontSize: 20,
+        color: 'white',
     },
 
     signInBox: {
         paddingLeft: 100,
     },
 
-    signIn: {
-        fontSize: 20,
-    },
 });
 
