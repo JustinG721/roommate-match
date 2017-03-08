@@ -15,10 +15,11 @@ import Splash from './Splash.js' ;
 import Login from './src/components/Login/Login.js'
 import Success from './src/components/Login/Success.js'
 
+
 export default class roomMateMatch extends Component {
     render() {
         return (
-            <Login />
+            <Login/>
         );
     }
 }

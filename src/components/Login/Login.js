@@ -1,14 +1,13 @@
 import React, {Component} from 'react';
 import {StyleSheet, View, Text, Button, 
         TextInput, Image, TouchableHighlight} from 'react-native';
-import LoginForm from './LoginForm.js';
 import Success from './Success.js';
 
 
 export default class Login extends Component {
 
     constructor () {
-        super ()
+        super ();
 
         this.state = {
             username: '',
@@ -20,8 +19,10 @@ export default class Login extends Component {
 
 async onLoginPressed() {
     this.setState({showProgress: true})
+    console.log('username: ', this.state.username)
+    console.log('password: ', this.state.password)
     try {
-      let response = await fetch('https://djangorest-prithajnath.c9users.io/get_auth_token/', {
+      let response = await fetch('https://roomies-backend-prithajnath.c9users.io/get_auth_token/', {
                               method: 'POST',
                               headers: {
                                 'Accept': 'application/json',
@@ -29,7 +30,7 @@ async onLoginPressed() {
                               },
                               body: JSON.stringify({
                                 session:{
-                                  email: this.state.email,
+                                  username: this.state.username,
                                   password: this.state.password,
                                 }
                               })
@@ -51,9 +52,9 @@ async onLoginPressed() {
         this.setState({error: error});
         console.log("error " + error);
         this.setState({showProgress: false});
+        }
     }
 
-    } 
     render() {
         return (
             <View style = {styles.container}>
@@ -66,7 +67,21 @@ async onLoginPressed() {
                 </View>
 
                 <View style = {styles.inputContainer}>
-                    <LoginForm />
+                    <TextInput 
+                    style = {styles.input}
+                    underlineColorAndroid = {'transparent'}
+                    onChangeText = { (text) => this.setState({username: text}) }/>
+                        <Text style = {styles.inputPrompt}> 
+                            Enter your username
+                        </Text>
+
+                    <TextInput
+                    style = {styles.input} 
+                    underlineColorAndroid = {'transparent'}
+                    onChangeText = { (text) => this.setState({password: text}) }/>
+                        <Text style = {styles.inputPrompt}>
+                            Enter your password
+                        </Text>
                 </View>
 
                 <View style = {styles.signInOrUp}>
@@ -85,7 +100,6 @@ async onLoginPressed() {
                     </View>    
                 </View>
             </View>
-
         );
     }
 }
@@ -118,6 +132,19 @@ const styles = StyleSheet.create({
     inputContainer: {
         paddingBottom: 50,
         justifyContent: 'center',
+        alignItems: 'center',
+    },
+
+    input: {
+        height: 40,
+        width: 200,
+        backgroundColor: '#007e9e',
+        opacity: 0.9,
+        textAlign: 'center',
+    },
+
+    inputPrompt: {
+        paddingBottom: 30,
     },
 
     signInOrUp: {
