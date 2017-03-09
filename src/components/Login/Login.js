@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
-import {StyleSheet, View, Text, Button, 
-        TextInput, Image, TouchableHighlight} from 'react-native';
+import {StyleSheet, View, Text, Button, AsyncStorage,
+        TextInput, Image, TouchableHighlight, Navigator} from 'react-native';
 import Success from './Success.js';
 
 
@@ -17,10 +17,27 @@ export default class Login extends Component {
         }
     }
 
+    redirect(routeName, accessToken){
+        this.props.navigator.push({
+        name: routeName
+        });
+    }
+    storeToken(responseData){
+        AsyncStorage.setItem('access_token', responseData, (err)=> {
+        if(err){
+            console.log("an error");
+            throw err;
+        }
+        console.log("success");
+        }).catch((err)=> {
+        console.log("error is: " + err);
+        });
+    }
+
 async onLoginPressed() {
     this.setState({showProgress: true})
-    console.log('username: ', this.state.username)
-    console.log('password: ', this.state.password)
+    username = this.state.username;
+    password = this.state.password;
     try {
       let response = await fetch('https://roomies-backend-prithajnath.c9users.io/get_auth_token/', {
                               method: 'POST',
@@ -29,10 +46,8 @@ async onLoginPressed() {
                                 'Content-Type': 'application/json',
                               },
                               body: JSON.stringify({
-                                session:{
-                                  username: this.state.username,
-                                  password: this.state.password,
-                                }
+                                  username: username,
+                                  password: password,
                               })
                             });
       let res = await response.text();
