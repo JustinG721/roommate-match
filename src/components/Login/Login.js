@@ -97,6 +97,11 @@ async onLoginPressed() {
                         <Text style = {styles.inputPrompt}>
                             Enter your password
                         </Text>
+
+                    <Text style={styles.error}>
+                        {this.state.error}
+                    </Text>
+
                 </View>
 
                 <View style = {styles.signInOrUp}>
@@ -123,7 +128,7 @@ async onLoginPressed() {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#005b72',
+        backgroundColor: '#11c7ff',
     },
 
     logoContainer: {
@@ -153,8 +158,8 @@ const styles = StyleSheet.create({
     input: {
         height: 40,
         width: 200,
-        backgroundColor: '#007e9e',
-        opacity: 0.9,
+        backgroundColor: 'white',
+        opacity: 0.7,
         textAlign: 'center',
     },
 
@@ -182,6 +187,12 @@ const styles = StyleSheet.create({
 
     signInBox: {
         paddingLeft: 100,
+    },
+
+    error: {
+        color: 'red',
+        fontSize: 10,
+        textAlign: 'center',
     },
 
 });

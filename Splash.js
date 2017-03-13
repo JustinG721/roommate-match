@@ -36,7 +36,7 @@ export default class Splash extends Component {
 const styles = StyleSheet.create({
     container: {
     flex: 1,
-    backgroundColor: '#005b72',
+    backgroundColor: '#11c7ff',
     },
 
     subtitle: {
