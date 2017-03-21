@@ -36,7 +36,7 @@ export default class roomMateMatch extends Component {
         return (
             <View style = {styles.container}>
                 <Navigator
-                initialRoute = {{name: 'Login'}}
+                initialRoute = {{name: 'SignUp'}}
                 renderScene = {this.renderScene.bind(this)} />
             </View>    
         );

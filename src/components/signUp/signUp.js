@@ -3,8 +3,6 @@ import {StyleSheet, View, Text, Button, AsyncStorage,
         TextInput, Image, TouchableHighlight, Navigator} from 'react-native';
 
 
-
-
 export default class SignUp extends Component {
 
 
@@ -16,7 +14,72 @@ export default class SignUp extends Component {
             password: '',
             repassword: '',
             email: '',
-            error: '',
+            errors: [],
+        }
+    }
+
+    redirect(routeName, accessToken){
+        this.props.navigator.push({
+        name: routeName
+        });
+    }
+
+    async storeToken(accessToken) {
+        try {
+            await AsyncStorage.setItem('access_token', accessToken);
+            console.log("Token was stored successfull ");
+        } catch(error) {
+            console.log("Something went wrong");
+        }
+    }
+
+
+    async onRegisterPressed() {
+        try {
+            let response = await fetch('https://roomies-backend-prithajnath.c9users.io/sign_up/', {
+                method: 'POST',
+                headers: {
+                    //'Accept': 'application/json',
+                    //'Content-Type': 'application/json',
+                    'Content-Type':'application/x-www-form-urlencoded'
+                },
+            /*   
+            body: JSON.stringify({
+                username: this.state.username,
+                email: this.state.email,
+                password: this.state.password,
+            })
+            */
+            body: "username="+this.state.username+"&password="+this.state.password+"&email="+this.state.email
+        });
+        let res = await response.text();
+        if (response.status >= 200 && response.status < 300) {
+            //Handle success
+            let accessToken = res;
+            console.log(accessToken);
+            //On success we will store the access_token in the AsyncStorage
+            this.storeToken(accessToken);
+            this.redirect('Login');
+        } else {
+            //Handle error
+            let error = res;
+            throw error;
+        }
+        } catch(errors) {
+            //errors are in JSON form so we must parse them first.
+            let formErrors = JSON.parse(errors);
+            //We will store all the errors in the array.
+            let errorsArray = [];
+            for(var key in formErrors) {
+                //If array is bigger than one we need to split it.
+                if(formErrors[key].length > 1) {
+                    formErrors[key].map(error => errorsArray.push(`${key} ${error}`));
+                } else {
+                    errorsArray.push(`${key} ${formErrors[key]}`);
+                }
+        }
+            this.setState({errors: errorsArray})
+            //this.setState({showProgress: false});
         }
     }
     render () {
@@ -24,18 +87,21 @@ export default class SignUp extends Component {
             <View style = {styles.container}>
                 <View style = {styles.signUpForm}>
                     <TextInput
+                    underlineColorAndroid = {'transparent'}
                     style = {styles.inputBox}
                     onChangeText = {(text) => this.setState({username: text}) } />
                     <Text style = {styles.inputPrompt}>
                         Username
                     </Text>
                     <TextInput
+                    underlineColorAndroid = {'transparent'}
                     style = {styles.inputBox}
                     onChangeText = {(text) => this.setState({email: text}) } />
                     <Text style = {styles.inputPrompt}>
                         Email
                     </Text>
                     <TextInput
+                    underlineColorAndroid = {'transparent'}
                     style = {styles.inputBox}
                     onChangeText = {(text) => this.setState({password: text}) } />
                     <Text style = {styles.inputPrompt}>
@@ -43,13 +109,19 @@ export default class SignUp extends Component {
                     </Text>
                     <TextInput
                     style = {styles.inputBox}
+                    underlineColorAndroid = {'transparent'}
                     onChangeText = {(text) => this.setState({repassword: text}) } />
                     <Text style = {styles.inputPrompt}>
                         Re-enter Password
                     </Text>
 
+                    <Text style={styles.errors}>
+                        {this.state.errors}
+                    </Text>
 
-                    <TouchableHighlight>
+
+                    <TouchableHighlight
+                    onPress = {this.onRegisterPressed.bind(this)}>
                         <View style = {styles.signUpBotton}>
                             <Text style = {styles.buttonText}>
                                 Sign Up
@@ -101,5 +173,11 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         color: 'black',
         fontSize: 32,
-    }
+    },
+
+    error: {
+        color: 'red',
+        fontSize: 10,
+        textAlign: 'center',
+    },
 });

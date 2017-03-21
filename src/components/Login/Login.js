@@ -33,7 +33,6 @@ export default class Login extends Component {
         console.log("error is: " + err);
         });
     }
-
 async onLoginPressed() {
     this.setState({showProgress: true})
     username = this.state.username;
@@ -105,11 +104,14 @@ async onLoginPressed() {
                 </View>
 
                 <View style = {styles.signInOrUp}>
-                    <View style = {styles.signUpBox}>
-                        <Text style = {styles.button}>
-                            SIGN UP
-                        </Text>
-                    </View>
+                    <TouchableHighlight
+                    >
+                        <View style = {styles.signUpBox}>
+                            <Text style = {styles.button}>
+                                SIGN UP
+                            </Text>
+                        </View>
+                    </TouchableHighlight>
                     <View style = {styles.signInBox}>
                         <TouchableHighlight 
                         onPress={this.onLoginPressed.bind(this)}>
