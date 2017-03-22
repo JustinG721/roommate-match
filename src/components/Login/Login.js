@@ -105,6 +105,7 @@ async onLoginPressed() {
 
                 <View style = {styles.signInOrUp}>
                     <TouchableHighlight
+                    onPress = {this.redirect.bind(this, 'SignUp')}
                     >
                         <View style = {styles.signUpBox}>
                             <Text style = {styles.button}>

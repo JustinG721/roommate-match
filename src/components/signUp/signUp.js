@@ -18,6 +18,14 @@ export default class SignUp extends Component {
         }
     }
 
+    checkPasswords() {
+        if (this.state.password != this.state.repassword) {
+            this.setState({errors: 'the passwords don\'t match'});
+        } else {
+            this.setState({errors: ''});
+        }
+    }
+
     redirect(routeName, accessToken){
         this.props.navigator.push({
         name: routeName
@@ -50,7 +58,7 @@ export default class SignUp extends Component {
                 password: this.state.password,
             })
             */
-            body: "username="+this.state.username+"&password="+this.state.password+"&email="+this.state.email
+            body: "username="+this.state.username+"&password="+this.state.password+"&email="+this.state.email,
         });
         let res = await response.text();
         if (response.status >= 200 && response.status < 300) {
@@ -103,14 +111,16 @@ export default class SignUp extends Component {
                     <TextInput
                     underlineColorAndroid = {'transparent'}
                     style = {styles.inputBox}
-                    onChangeText = {(text) => this.setState({password: text}) } />
+                    onChangeText = {(text) => this.setState({password: text}) } 
+                    />
                     <Text style = {styles.inputPrompt}>
                         Password
                     </Text>
                     <TextInput
                     style = {styles.inputBox}
                     underlineColorAndroid = {'transparent'}
-                    onChangeText = {(text) => this.setState({repassword: text}) } />
+                    onChangeText = {(text) => this.setState({repassword: text}) }
+                    onSubmitEditing = {this.checkPasswords.bind(this)} />
                     <Text style = {styles.inputPrompt}>
                         Re-enter Password
                     </Text>
@@ -118,11 +128,12 @@ export default class SignUp extends Component {
                     <Text style={styles.errors}>
                         {this.state.errors}
                     </Text>
+                </View>
 
-
+                <View style = {styles.signUp}>
                     <TouchableHighlight
                     onPress = {this.onRegisterPressed.bind(this)}>
-                        <View style = {styles.signUpBotton}>
+                        <View style = {styles.signUpButton}>
                             <Text style = {styles.buttonText}>
                                 Sign Up
                             </Text>
@@ -142,8 +153,9 @@ const styles = StyleSheet.create({
 
     signUpForm: {
         paddingTop: 50,
-        flex: 1,
+        //flex: 1,
         //justifyContent: 'center',
+        marginBottom: 50,
         alignItems: 'center'
     },
 
@@ -160,24 +172,29 @@ const styles = StyleSheet.create({
         color: 'white'
     },
 
-    signUpBotton: {
+    signUpButton: {
         backgroundColor: 'white',
         height: 50,
         width: 200,
         alignItems: 'center',
         justifyContent: 'center',
-        marginTop: 60,
-
+        //marginTop: 60,
     },
+
+    signUp: {
+        justifyContent: 'center',
+        alignItems: 'center'
+    },
+
     buttonText: {
         fontWeight: 'bold',
         color: 'black',
         fontSize: 32,
     },
 
-    error: {
+    errors: {
         color: 'red',
-        fontSize: 10,
+        fontSize: 12,
         textAlign: 'center',
     },
 });
