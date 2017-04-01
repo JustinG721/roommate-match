@@ -28,7 +28,7 @@ export default class Login extends Component {
             console.log("an error");
             throw err;
         }
-        console.log("success");
+        console.log("storage token was a success");
         }).catch((err)=> {
         console.log("error is: " + err);
         });
@@ -56,7 +56,7 @@ async onLoginPressed() {
           console.log(accessToken);
           //On success we will store the access_token in the AsyncStorage
           this.storeToken(accessToken);
-          this.redirect('Success');
+          this.redirect('Profile');
       } else {
           //Handle error
           let error = res;
@@ -65,7 +65,7 @@ async onLoginPressed() {
     } catch(error) {
         this.setState({error: error});
         console.log("error " + error);
-        this.setState({showProgress: false});
+        //this.setState({showProgress: false});
         }
     }
 

@@ -10,9 +10,10 @@ import {
     Text, View, Navigator, } from 'react-native';
 
 import Splash from './Splash.js' ;
-import Login from './src/components/Login/Login.js'
-import Success from './src/components/Login/Success.js'
-import SignUp from './src/components/signUp/signUp.js'
+import Login from './src/components/Login/Login.js';
+import Success from './src/components/Login/Success.js';
+import SignUp from './src/components/signUp/signUp.js';
+import Profile from './src/components/profile/Profile.js';
 
 
 export default class roomMateMatch extends Component {
@@ -29,6 +30,9 @@ export default class roomMateMatch extends Component {
         }
         if (route.name == 'SignUp') {
             return <SignUp navigator = {navigator} />
+        }
+        if (route.name == 'Profile') {
+            return <Profile navifator = {navigator} {...route.passProps}/>
         }
     }
 

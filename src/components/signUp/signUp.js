@@ -21,8 +21,10 @@ export default class SignUp extends Component {
     checkPasswords() {
         if (this.state.password != this.state.repassword) {
             this.setState({errors: 'the passwords don\'t match'});
+            return (false) ;
         } else {
             this.setState({errors: ''});
+            return (true) ;
         }
     }
 
@@ -35,9 +37,9 @@ export default class SignUp extends Component {
     async storeToken(accessToken) {
         try {
             await AsyncStorage.setItem('access_token', accessToken);
-            console.log("Token was stored successfull ");
+            console.log("Token was stored successfully");
         } catch(error) {
-            console.log("Something went wrong");
+            console.log("Something went wrong in the signUp page");
         }
     }
 
