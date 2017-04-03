@@ -32,7 +32,7 @@ export default class roomMateMatch extends Component {
             return <SignUp navigator = {navigator} />
         }
         if (route.name == 'Profile') {
-            return <Profile navifator = {navigator} {...route.passProps}/>
+            return <Profile navigator = {navigator} {...route.passProps}/>
         }
     }
 
@@ -40,7 +40,7 @@ export default class roomMateMatch extends Component {
         return (
             <View style = {styles.container}>
                 <Navigator
-                initialRoute = {{name: 'Login'}}
+                initialRoute = {{name: 'Profile'}}
                 renderScene = {this.renderScene.bind(this)} />
             </View>    
         );

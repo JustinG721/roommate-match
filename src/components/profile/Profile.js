@@ -31,7 +31,7 @@ export default class Profile extends Component {
             }
         } catch (error) {
             console.log('Something went wrong with getToken on Profile') ;
-            this.redirect('Login') ;
+            this.redirect('Login');
         }
     }
     redirect(routeName){

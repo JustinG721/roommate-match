@@ -22,6 +22,7 @@ export default class Login extends Component {
         name: routeName
         });
     }
+
     storeToken(responseData){
         AsyncStorage.setItem('access_token', responseData, (err)=> {
         if(err){
@@ -33,40 +34,40 @@ export default class Login extends Component {
         console.log("error is: " + err);
         });
     }
-async onLoginPressed() {
-    this.setState({showProgress: true})
-    username = this.state.username;
-    password = this.state.password;
-    try {
-      let response = await fetch('https://roomies-backend-prithajnath.c9users.io/get_auth_token/', {
-                              method: 'POST',
-                              headers: {
-                                'Accept': 'application/json',
-                                'Content-Type': 'application/json',
-                              },
-                              body: JSON.stringify({
-                                  username: username,
-                                  password: password,
-                              })
+    async onLoginPressed() {
+        this.setState({showProgress: true})
+        username = this.state.username;
+        password = this.state.password;
+        try {
+        let response = await fetch('https://roomies-backend-prithajnath.c9users.io/get_auth_token/', {
+                                method: 'POST',
+                                headers: {
+                                    'Accept': 'application/json',
+                                    'Content-Type': 'application/json',
+                                },
+                                body: JSON.stringify({
+                                    username: username,
+                                    password: password,
+                                })
                             });
-      let res = await response.text();
-      if (response.status >= 200 && response.status < 300) {
-          //Handle success
-          let accessToken = res;
-          console.log(accessToken);
-          //On success we will store the access_token in the AsyncStorage
-          this.storeToken(accessToken);
-          this.redirect('Profile');
-      } else {
-          //Handle error
-          let error = res;
-          throw error;
-      }
-    } catch(error) {
-        this.setState({error: error});
-        console.log("error " + error);
-        //this.setState({showProgress: false});
+        let res = await response.text();
+        if (response.status >= 200 && response.status < 300) {
+            //Handle success
+            let accessToken = res;
+            console.log(accessToken);
+            //On success we will store the access_token in the AsyncStorage
+            this.storeToken(accessToken);
+            this.redirect('Profile');
+        } else {
+            //Handle error
+            let error = res;
+            throw error;
         }
+        } catch(error) {
+            this.setState({error: error});
+            console.log("error " + error);
+            //this.setState({showProgress: false});
+            }
     }
 
     render() {
