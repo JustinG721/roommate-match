@@ -23,8 +23,8 @@ export default class Login extends Component {
         });
     }
 
-    storeToken(responseData){
-        AsyncStorage.setItem('access_token', responseData, (err)=> {
+    async storeToken(responseData){
+        await AsyncStorage.setItem('access_token', responseData, (err)=> {
         if(err){
             console.log("an error");
             throw err;
@@ -56,8 +56,9 @@ export default class Login extends Component {
             let accessToken = res;
             console.log(accessToken);
             //On success we will store the access_token in the AsyncStorage
-            this.storeToken(accessToken);
-            this.redirect('Profile');
+            await this.storeToken(accessToken)
+            console.log('token should be stored, redirecting to profile');
+            this.redirect('Profile')
         } else {
             //Handle error
             let error = res;

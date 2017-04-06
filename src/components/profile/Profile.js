@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {StyleSheet, View, Text, Navigator, TouchableHighlight,
         Button, TextInput, Image, AsyncStorage} from 'react-native';
 
-const ACCES_TOKEN = 'access_token';
+const ACCESS_TOKEN = 'access_token';
 
 
 export default class Profile extends Component {
@@ -30,7 +30,8 @@ export default class Profile extends Component {
                 this.setState({accessToken: accessToken})
             }
         } catch (error) {
-            console.log('Something went wrong with getToken on Profile') ;
+            console.log('Something went wrong with getToken on Profile', error) ;
+            console.log('error:', error);
             this.redirect('Login');
         }
     }
