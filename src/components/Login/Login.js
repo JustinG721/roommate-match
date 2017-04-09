@@ -4,6 +4,8 @@ import {StyleSheet, View, Text, Button, AsyncStorage,
 import Success from './Success.js';
 
 
+const ACCESS_TOKEN = 'access_token';
+
 export default class Login extends Component {
 
     constructor () {
@@ -23,13 +25,12 @@ export default class Login extends Component {
         });
     }
 
-    async storeToken(responseData){
-        await AsyncStorage.setItem('access_token', responseData, (err)=> {
+    storeToken(responseData){
+        AsyncStorage.setItem(ACCESS_TOKEN, responseData, (err)=> {
         if(err){
             console.log("an error");
             throw err;
         }
-        console.log("storage token was a success");
         }).catch((err)=> {
         console.log("error is: " + err);
         });
@@ -50,14 +51,13 @@ export default class Login extends Component {
                                     password: password,
                                 })
                             });
-        let res = await response.text();
+        let res = await response.text() ;
+        resObj = JSON.parse(res) ;
         if (response.status >= 200 && response.status < 300) {
             //Handle success
-            let accessToken = res;
-            console.log(accessToken);
+            let accessToken = resObj['token'];
             //On success we will store the access_token in the AsyncStorage
-            await this.storeToken(accessToken)
-            console.log('token should be stored, redirecting to profile');
+            this.storeToken(accessToken)
             this.redirect('Profile')
         } else {
             //Handle error

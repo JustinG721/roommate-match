@@ -12,7 +12,7 @@ export default class Profile extends Component {
 
         this.state = {
             name: '',
-            password: '',
+            email: '',
             accessToken: '',
         }
     }
@@ -21,6 +21,25 @@ export default class Profile extends Component {
         this.getToken() ;
     }
 
+    async getProfile(token) {
+        let auth = ('Token ' + token)
+        try {
+            let profile = await fetch("https://roomies-backend-prithajnath.c9users.io/get_profile", {
+                headers: {
+                Authorization: auth
+                }
+            })
+
+
+            let test = await profile.text();
+            nest = JSON.parse(test);
+            this.setState({email:nest['email'], name:nest['username']})
+        }catch (error) {
+            console.log('an error has occured, asshole')
+            console.log(error)
+
+        }
+    }
     async getToken() {
         try {
             let accessToken = await AsyncStorage.getItem(ACCESS_TOKEN) ;
@@ -28,6 +47,7 @@ export default class Profile extends Component {
                 this.redirect('Login') ;
             } else {
                 this.setState({accessToken: accessToken})
+                this.getProfile(accessToken)
             }
         } catch (error) {
             console.log('Something went wrong with getToken on Profile', error) ;
@@ -55,7 +75,7 @@ export default class Profile extends Component {
                     Your username is {this.state.name}
                 </Text>
                 <Text style = {styles.welcome}>
-                    Your password is {this.state.password}
+                    Your email is {this.state.email}
                 </Text>
             </View>
 
