@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
-import {StyleSheet, View, Text, Navigator, TouchableHighlight,
-        Button, TextInput, Image, AsyncStorage} from 'react-native';
+import {StyleSheet, View, Text, Navigator, 
+        Button, Image, AsyncStorage, TouchableHighlight,} from 'react-native';
 
 const ACCESS_TOKEN = 'access_token';
 
@@ -77,6 +77,13 @@ export default class Profile extends Component {
                 <Text style = {styles.welcome}>
                     Your email is {this.state.email}
                 </Text>
+
+                <TouchableHighlight
+                onPress = {this.props.navigator.push('editProfile')}>
+                    <View style = {styles.signUpButton}>
+                        <Text> Edit Profile </Text>
+                    </View>
+                </TouchableHighlight>
             </View>
 
         );
@@ -87,11 +94,19 @@ const styles = StyleSheet.create ({
     container: {
         flex: 1,
         backgroundColor: '#11c7ff',
+        alignItems: 'center',
     },
     welcome: {
         color: 'white',
         textAlign: 'center',
         paddingTop: 20,
         fontSize: 32,
+    },
+    signUpButton: {
+        backgroundColor: 'white',
+        height: 50,
+        width: 200,
+        alignItems: 'center',
+        justifyContent: 'center',
     },
 })
