@@ -14,7 +14,7 @@ import Login from './src/components/Login/Login.js';
 import Success from './src/components/Login/Success.js';
 import SignUp from './src/components/signUp/signUp.js';
 import Profile from './src/components/profile/Profile.js';
-import editProfile from './src/components/profile/editProfile.js'
+import EditProfile from './src/components/profile/EditProfile.js'
 
 
 export default class roomMateMatch extends Component {
@@ -35,9 +35,10 @@ export default class roomMateMatch extends Component {
         if (route.name == 'Profile') {
             return <Profile navigator = {navigator} {...route.passProps}/>
         }
-                if (route.name == 'editProfile') {
-            return <editProfile navigator = {navigator} {...route.passProps}/>
+        if (route.name == 'EditProfile') {
+            return <EditProfile navigator = {navigator} {...route.passProps} />
         }
+    
     }
 
     render() {

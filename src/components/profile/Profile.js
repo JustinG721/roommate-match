@@ -79,8 +79,8 @@ export default class Profile extends Component {
                 </Text>
 
                 <TouchableHighlight
-                onPress = {this.props.navigator.push('editProfile')}>
-                    <View style = {styles.signUpButton}>
+                onPress = {this.redirect.bind(this, 'EditProfile')}>
+                    <View style = {styles.editProfileButton}>
                         <Text> Edit Profile </Text>
                     </View>
                 </TouchableHighlight>
@@ -102,7 +102,7 @@ const styles = StyleSheet.create ({
         paddingTop: 20,
         fontSize: 32,
     },
-    signUpButton: {
+    editProfileButton: {
         backgroundColor: 'white',
         height: 50,
         width: 200,
