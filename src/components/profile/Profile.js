@@ -11,9 +11,11 @@ export default class Profile extends Component {
         super (props) ;
 
         this.state = {
-            name: '',
+            username: '',
             email: '',
             accessToken: '',
+            first_name : '',
+            last_name: '',
         }
     }
 
@@ -33,7 +35,12 @@ export default class Profile extends Component {
 
             let test = await profile.text();
             nest = JSON.parse(test);
-            this.setState({email:nest['email'], name:nest['username']})
+            this.setState({
+                email: nest['email'],
+                username: nest['username'],
+                first_name: nest['first_name'],
+                last_name: nest['last_name']
+            })
         }catch (error) {
             console.log('an error has occured, asshole')
             console.log(error)
@@ -60,6 +67,7 @@ export default class Profile extends Component {
             name: routeName,
             passProps: {
                 accessToken: this.state.accessToken
+
             }
         });
     }
@@ -72,12 +80,14 @@ export default class Profile extends Component {
                     Your access token is {this.state.accessToken}
                 </Text>
                 <Text style = {styles.welcome}>
-                    Your username is {this.state.name}
+                    Your username is {this.state.username}
                 </Text>
                 <Text style = {styles.welcome}>
                     Your email is {this.state.email}
                 </Text>
-
+                <Text style = {styles.welcome}>
+                    Your name is {this.state.first_name} {this.state.last_name}
+                </Text>                
                 <TouchableHighlight
                 onPress = {this.redirect.bind(this, 'EditProfile')}>
                     <View style = {styles.editProfileButton}>

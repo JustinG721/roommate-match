@@ -18,8 +18,19 @@ export default class EditProfile extends Component {
             last_name: '',
             email: '',
             accessToken: this.props.accessToken,
+
         }
 
+    }
+
+    redirect(routeName){
+        this.props.navigator.push({
+            name: routeName,
+            passProps: {
+                first_name: this.state.first_name,
+                last_name: this.state.last_name
+            }
+        });
     }
 
     async onEditPressed() {
@@ -34,6 +45,8 @@ export default class EditProfile extends Component {
                         "&first_name="+this.state.first_name+
                         "&last_name="+this.state.last_name,
                 });
+
+                this.redirect('Profile')
 
         } catch(error) {
             console.log('an error has occured on EditProfile Component')
@@ -54,7 +67,7 @@ export default class EditProfile extends Component {
                         style = {styles.inputBox}
                         onChangeText = {(text) => this.setState({first_name: text}) } />
                         <Text style = {styles.inputPrompt}>
-                            what's your name?
+                            what's your first name?
                         </Text>
 
                     <TextInput
