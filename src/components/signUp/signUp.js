@@ -49,32 +49,32 @@ export default class SignUp extends Component {
             let response = await fetch('https://roomies-backend-prithajnath.c9users.io/sign_up/', {
                 method: 'POST',
                 headers: {
-                    //'Accept': 'application/json',
-                    //'Content-Type': 'application/json',
                     'Content-Type':'application/x-www-form-urlencoded'
                 },
-            /*   
+            /*
             body: JSON.stringify({
                 username: this.state.username,
                 email: this.state.email,
                 password: this.state.password,
             })
             */
-            body: "username="+this.state.username+"&password="+this.state.password+"&email="+this.state.email,
-        });
-        let res = await response.text();
-        if (response.status >= 200 && response.status < 300) {
-            //Handle success
-            let accessToken = res;
-            console.log(accessToken);
-            //On success we will store the access_token in the AsyncStorage
-            this.storeToken(accessToken);
-            this.redirect('Login');
-        } else {
-            //Handle error
-            let error = res;
-            throw error;
-        }
+                body: "username="+this.state.username+
+                        "&password="+this.state.password+
+                        "&email="+this.state.email,
+                });
+            let res = await response.text();
+            if (response.status >= 200 && response.status < 300) {
+                //Handle success
+                let accessToken = res;
+                console.log(accessToken);
+                //On success we will store the access_token in the AsyncStorage
+                this.storeToken(accessToken);
+                this.redirect('Login');
+            } else {
+                //Handle error
+                let error = res;
+                throw error;
+            }
         } catch(errors) {
             //errors are in JSON form so we must parse them first.
             let formErrors = JSON.parse(errors);
@@ -155,8 +155,6 @@ const styles = StyleSheet.create({
 
     signUpForm: {
         paddingTop: 50,
-        //flex: 1,
-        //justifyContent: 'center',
         marginBottom: 50,
         alignItems: 'center'
     },
@@ -165,7 +163,7 @@ const styles = StyleSheet.create({
         backgroundColor: 'white',
         height: 40,
         width: 300,
-        opacity: 0.7,
+        opacity: 0.6,
         textAlign: 'center',
     },
     inputPrompt: {
@@ -180,7 +178,6 @@ const styles = StyleSheet.create({
         width: 200,
         alignItems: 'center',
         justifyContent: 'center',
-        //marginTop: 60,
     },
 
     signUp: {
