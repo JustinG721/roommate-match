@@ -35,7 +35,7 @@ export default class Profile extends Component {
             nest = JSON.parse(test);
             this.setState({email:nest['email'], name:nest['username']})
         }catch (error) {
-            console.log('an error has occured, asshole')
+            console.log('an error has occured while trying to get profile information')
             console.log(error)
 
         }
